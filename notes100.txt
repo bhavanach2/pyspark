@@ -3,8 +3,9 @@ from pyspark.sql import SparkSession
 spark = SparkSession.builder.appName("name of the project").getOrCreate() // The whole appname is optional
 ---------------------------------------------------------------------------------
 # READING DATA
-spark.read.format(''),load()  OR
+spark.read.format('').load()  OR
 spark.read.csv('path to file')
+retail_df = (spark.read.format("csv").option("inferSchema", "true").option("header","true").load("dbfs:/FileStore/shared_uploads/snudurupati@outlook.com/"))
 #PRINT SCHEMA
 inputting df name in the shell gives its schema; other ways to get schema
 df.printSchema() --- gives schema in a tree form
