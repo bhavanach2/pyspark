@@ -1,2 +1,28 @@
-from pyspark.sql.functions import *
-      
+# To start a SparkSession
+from pyspark.sql import SparkSession
+spark = SparkSession.builder.appName("name of the project").getOrCreate() // The whole appname is optional
+---------------------------------------------------------------------------------
+# READING DATA
+spark.read.format(''),load()  OR
+spark.read.csv('path to file')
+#PRINT SCHEMA
+inputting df name in the shell gives its schema; other ways to get schema
+df.printSchema() --- gives schema in a tree form
+print(df.dtypes) -- list of tuples (column_name, column_type
+---------------------------------------------------------------------------------
+# DIAPLAY TABLE DATA
+df.show() 
+$ n - int(number of rows)
+$ truncate = bool or int, optional - Truncates columns to display only 20 characters
+$ vertical = bool, optional  - displays each record as a small table, useful for the purpose of checking records in detail. 
+> book.show(10, truncate = 50)
+--------------------------------------------------------------------------------
+A data frame is made out of Column objects, and you perform transformations on them.
+# SELECT THE DATA (Selest in Pyspark is like the Slect in SQL)
+book.select(book.value)
+book.select(book["value"])
+book.select(col("value"))
+book.select("value")
+---------------------------------------------------------------------------------
+
+
