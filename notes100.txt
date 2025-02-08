@@ -9,21 +9,154 @@ retail_df = (spark.read.format("csv").option("inferSchema", "true").option("head
 #PRINT SCHEMA
 inputting df name in the shell gives its schema; other ways to get schema
 df.printSchema() --- gives schema in a tree form
-print(df.dtypes) -- list of tuples (column_name, column_type
+print(df.dtypes) -- list of tuples (column_name, column_type)
 ---------------------------------------------------------------------------------
 # DIAPLAY TABLE DATA
+display(df)
+The display() function, on the other hand, is a feature provided by Databricks
+df.describe()
 df.show() 
 $ n - int(number of rows)
 $ truncate = bool or int, optional - Truncates columns to display only 20 characters
 $ vertical = bool, optional  - displays each record as a small table, useful for the purpose of checking records in detail. 
-> book.show(10, truncate = 50)
+>>>>> book.show(10, truncate = 50)
 --------------------------------------------------------------------------------
 A data frame is made out of Column objects, and you perform transformations on them.
 # SELECT THE DATA (Selest in Pyspark is like the Slect in SQL)
-book.select(book.value)
+book.select(book.value) - value is the column name here and its case sensitive
 book.select(book["value"])
 book.select(col("value"))
-book.select("value")
+book.select("value") - column names not case sensitive
 ---------------------------------------------------------------------------------
+# WRITE THE DATA
+df.write.mode().format.saveAsTable("Table Name").format()
+$ mode - overwrite, append, error, ignore
+$ Table Name 
+$ format - format, the table must be saved in; ex: delta
+----------------------------------------------------------------------------------
+# CHANGE COLUMN NAMES 
+df = df.select(df.col_name.alias("alias_name") - better to not use spaces in the column name, easier this way
+----------------------------------------------------------------------------------
+# FILTER
+df.where (OR) df.wehere("column name = condition")
+-- for strings use "column_name=='condition'"
+display(df.filter("column_name !='condition"))
+>>>>> df.filter(items=['one', 'three']) -- 
+----------------------------------------------------------------------------------
+# TOP/BOTTOM ROWS 
+df.<statement>.limit(number) OR df.<statement>.tail(number)
+----------------------------------------------------------------------------------
+# ADD NEW COLUMNS
+display(df.withColumn("column_name", condition))
+display(df.withColumn("column_name", condition),withColumn()...)
+----------------------------------------------------------------------------------
+# SUBSTRING
+df.col_name.substr(2,1) - from 2nd character derive 1 character
+----------------------------------------------------------------------------------
+# DATE FUNCTIONS
+> second(), minute(), hour()
+> dayofyear(), dayofmonth(), dayofweek()
+> weekofyear(), month(), year()
+> date_add(start_date, days)
+> date_sub(start_date, days)
+> date_diff(end,start)
+> date_trunc(format, timestamp) -- format string of how the datetime is to be modified
+> add_months(Start_date, no_of_months)
+> months_between(date1,date2)
+> last_day(date)
+> next_day(date)
+> len(col)
+> curret_date()
+> current_timestamp()
+> trunc(date,format)
+# MATH
+> abs()
+> signum()
+> trig fucntions, exp, factorial, log, radians()
+> cbrt(col), pow(col1, col2), sqrt(col)
+# ROUNDING
+> ceil(col) -- rounding up
+> floor(col) -- round down
+> round(col, scale) - round to the nearest number(scale) of decimal places 
+# STRING
+> concat(str1, str2)
+> instr(col, search_string) - looks for string in a column
+> lower(col), upper(col)
+> lpad(col, len, pad) - fill the left hand side of the string with spaces or a character)
+  >>>>> df.select(lpad(df.s, 6, '#').alias('s')).collect() {collect - Returns all the records as a list of Row.}
+> ltrim(), rtrim(), trim()
+> repeat(column, number) - repeats a string specific 'number' of times 
+----------------------------------------------------------------------------------
+# BETWEEN 
 
+----------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------
+
+
+
+----------------------------------------------------------------------------------
+
+
+
+
+----------------------------------------------------------------------------------
+
+
+
+----------------------------------------------------------------------------------
+
+
+
+----------------------------------------------------------------------------------
+
+
+
+----------------------------------------------------------------------------------
+
+
+
+
+----------------------------------------------------------------------------------
+
+
+
+----------------------------------------------------------------------------------
+
+
+
+
+----------------------------------------------------------------------------------
+
+
+
+----------------------------------------------------------------------------------
+
+
+
+
+----------------------------------------------------------------------------------
+
+
+
+
+----------------------------------------------------------------------------------
+
+
+
+
+----------------------------------------------------------------------------------
+
+
+
+
+----------------------------------------------------------------------------------
+
+
+
+----------------------------------------------------------------------------------
 
